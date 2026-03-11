@@ -14,9 +14,13 @@ The purpose of this project is to understand how the socioeconomic environment r
 ## Team
 
 Soobin Jang
-
+-Data Collection and preprocessing
+-Data Cleaning and Merging
 
 Jiseok Han
+- Visualization and Statistical Analysis
+- Documentation Support
+- Writing and project presentation preperation
 
 ## Timeline
 
@@ -50,6 +54,11 @@ Since both datasets contain state-level information in the United States, the da
 
 
 ## Constraints
+There might be several limitations which could affect the result. 
 
+First, crime data may be influenced by differences in reporting practices across states, which may introduce inconsistency.
+
+Second, the analysis is conducted at the state level, which may conceal any important variations within states.
 
 ## Gaps
+
