@@ -24,6 +24,44 @@ Jiseok Han
 
 ## Timeline
 
+**Week 1 – Data Collection and Initial Review**
+
+- Collect crime data from the FBI Uniform Crime Reporting (UCR) program
+
+- Collecting socioeconomic indicator data (poverty rate, unemployment rate, household median income, etc.) from the USDA Economic Research Service
+
+- Review the structure of each dataset and identify key variables for analysis
+
+**Week 2 – Organize and preprocess data**
+
+- Clean up data, such as removing unnecessary heat and checking missing values
+
+- State identifiers and variable formats to combine two datasets
+
+- Pre-processing for data consolidation
+
+**Week 3 – Data Consolidation and Exploratory Data Analysis (EDA)**
+
+- Combine crime data with socioeconomic data based on state unit identifiers
+
+- Exploratory data analysis determines the distribution and summary statistics of variables
+
+- Exploring the Early Patterns between Crime Rate and Socioeconomic Variables
+
+**Week 4 – Visualization and Statistical Analysis**
+
+- Create different visualizations comparing state-specific crime rates and socioeconomic indicators
+
+- Exploring the correlation between poverty rate, unemployment rate, income level and crime rate
+
+- Perform basic statistical analyses, such as correlation or regression, if necessary
+
+**Week 5 – Interpretation of results and project completion**
+
+- Interpret analysis results and summarize key findings
+
+- Discuss the limitations of data and the meaning of analysis results
+
 
 ## Research Questions
 
