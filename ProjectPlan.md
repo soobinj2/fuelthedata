@@ -79,12 +79,12 @@ RQ4: Which socioeconomic indicators appear to be the strongest predictors of cri
 - Dataset 1
 FBI Uniform Crime Reporting (UCR) – Offenses Known to Law Enforcement (https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/downloads)
 
-This dataset is official crime statistics collected by the FBI and contains information on the number of crimes committed by state and the type of crime. This allows you to compare crime patterns in each state in the United States.
+ This dataset is official crime statistics collected by the FBI and contains information on the number of crimes committed by state and the type of crime. This allows you to compare crime patterns in each state in the United States.
 
 - Dataset 2
 USDA Economic Research Service – Socioeconomic Indicators (https://ers.usda.gov/data-products/county-level-data-sets)
 
-This dataset is socioeconomic indicator data provided by the US Department of Agriculture's Bureau of Economic Research and includes information such as poverty rate, unemployment rate, and household median income. The data can be used to identify differences in economic conditions between regions.
+ This dataset is socioeconomic indicator data provided by the US Department of Agriculture's Bureau of Economic Research and includes information such as poverty rate, unemployment rate, and household median income. The data can be used to identify differences in economic conditions between regions.
 
 - How to integrate data
 
@@ -92,11 +92,21 @@ Since both datasets contain state-level information in the United States, the da
 
 
 ## Constraints
+
 There might be several limitations which could affect the result. 
 
 First, crime data may be influenced by differences in reporting practices across states, which may introduce inconsistency.
 
 Second, the analysis is conducted at the state level, which may conceal any important variations within states.
 
+Lastly, some indicators may not perfectly align in terms of time coverage with crime data and it may require filtering the datasets to overlapping years.
+
 ## Gaps
+
+ Although there are two primary datasets in the current plan, there are some areas that need improvement.
+One is that there are some socioeconomic factors, like education levels, population density, and urbanization, that could be helpful in further understanding the difference in crime rates. We could look into further datasets that could include these factors if necessary.
+
+ Another is that, although we have included that we could merge these two datasets based on state-level information, we might have to further investigate if these two datasets have similar time and geographical units. This could be an issue if there are any discrepancies.
+
+ Lastly, we might have to further investigate and get more information on how we could further choose appropriate statistical methods, like correlation and regression, in further evaluating how socioeconomic factors affect crime rates.
 
