@@ -14,8 +14,8 @@ The purpose of this project is to understand how the socioeconomic environment r
 ## Team
 
 Soobin Jang
--Data Collection and preprocessing
--Data Cleaning and Merging
+- Data Collection and preprocessing
+- Data Cleaning and Merging
 
 Jiseok Han
 - Visualization and Statistical Analysis
