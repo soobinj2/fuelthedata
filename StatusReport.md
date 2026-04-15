@@ -63,6 +63,7 @@ The different types of crimes are very related. If one type of crime is high in 
 
 The scatter plot showed that it is hard to explain the crime rate with one variable. The data points are over the place. Some states have high crime rates, which means there might be other factors, at play.
 
+These results suggest that unemployment may be a more important factor than poverty in explaining variations in crime across states.
 
 ## 7. Team member Contributions
 
