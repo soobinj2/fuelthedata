@@ -1,12 +1,12 @@
-================================================================================
+
 DATA DICTIONARY
 IS 477 Final Project: Fuel the Data
 Crime and Socioeconomic Factors in the United States
-================================================================================
 
---------------------------------------------------------------------------------
+
+
 MERGED DATASET: results/merged_data.csv
---------------------------------------------------------------------------------
+
 This is the primary analysis dataset produced by scripts/clean_and_merge.py.
 It contains state-level socioeconomic and crime variables for 48 U.S. states.
 
@@ -152,9 +152,8 @@ SOURCE DATASETS
                      Motor vehicle theft
    License: Public domain (U.S. federal government work)
 
---------------------------------------------------------------------------------
 INTEGRATION NOTES
---------------------------------------------------------------------------------
+
 - All three datasets were merged on the "State" column using inner joins.
 - Crime data was aggregated from city level to state level using groupby().sum()
   before merging.
@@ -163,4 +162,4 @@ INTEGRATION NOTES
 - Median household income was converted from currency string to float.
 - See scripts/clean_and_merge.py for the complete integration workflow.
 
---------------------------------------------------------------------------------
+
