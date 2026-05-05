@@ -7,8 +7,59 @@
 ## Contributors
 
 ## Summary
+Crime rates in the United States vary considerably from state to state, and these differences are widely believed to reflect underlying socioeconomic conditions. While crime is shaped by many factors—historical, cultural, institutional—poverty, unemployment, and income inequality are commonly cited as structural drivers. This project investigates how these socioeconomic indicators relate to crime levels across U.S. states, with the goal of identifying which factors are most strongly associated with higher crime.
+
+We integrate three publicly available datasets: crime statistics from the FBI's Uniform Crime Reporting (UCR) program (2024), poverty estimates from the USDA Economic Research Service (2023), and unemployment rates and median household income from the same USDA ERS data product (2022–2023). Because each dataset reports values at the state level (or can be aggregated to the state level), they can be merged on state name and analyzed jointly.
+
+Our research questions are:
+
+-	RQ1: How are poverty rates related to crime rates across U.S. states?
+-	RQ2: Is unemployment associated with higher crime levels?
+-	RQ3: How does median household income relate to variations in crime rates across states?
+-	RQ4: Which socioeconomic indicators appear to be the strongest predictors of crime levels?
+
+After cleaning and merging the three datasets into a unified state-level dataset, we performed exploratory data analysis using scatter plots, correlation analysis, and linear regression. Key findings:
+
+-	Poverty rate showed only a weak relationship with crime variables (correlations ranging from 0.04 to 0.19), suggesting that poverty alone does not strongly explain variation in state-level crime.
+-	Unemployment rate showed a moderate positive correlation with violent and property crime (around 0.44–0.49). Linear regression confirmed unemployment as a meaningful predictor (positive coefficient ≈ 16,799 for violent crime).
+-	Median household income showed a very weak relationship with violent crime (r ≈ 0.17), again indicating that income alone is not a strong predictor.
+-	Comparing all three predictors, unemployment rate emerged as the strongest socioeconomic correlate of crime; in a multiple regression including all three variables, unemployment remained the dominant predictor.
+
+We also observed that crime variables themselves are highly intercorrelated (r > 0.9), meaning states with high levels of one type of crime tend to have high levels of others. This pattern likely reflects differences in state population size as much as differences in per-capita crime, and it is a limitation that future work should address through normalization.
+
+Overall, the analysis suggests that unemployment is a more consistent socioeconomic correlate of crime than either poverty or income, but that the explanatory power of these variables individually is modest. This points to the need for additional factors—such as education, urbanization, population density, and demographic composition—to fully understand state-level crime variation.
 
 ## Data Profile
+Dataset 1 — FBI Uniform Crime Reporting (UCR), 2024
+Source: FBI Crime Data Explorer, "Offenses Known to Law Enforcement by State by City, 2024" (CIUS Table 8) URL: https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/downloads Location in repository: data/offenses-known-to-le-2024/CIUS_Table_8_Offenses_Known_to_Law_Enforcement_by_State_by_City_2024.xlsx Format: Excel (.xlsx)
+
+This dataset contains counts of reported offenses by city within each state. Variables used in this analysis: State, Violent crime, Murder and nonnegligent manslaughter, Rape, Robbery, Aggravated assault, Property crime, Burglary, Larceny-theft, and Motor vehicle theft. Because the dataset is reported at the city level, we aggregated all cities within each state using groupby('State').sum() to produce state-level totals.
+
+The UCR program is voluntary and not all law enforcement agencies report consistently. As a result, crime counts may underrepresent true offense levels in states with lower reporting rates. Aggregate crime statistics can also reflect differences in policing and reporting practices rather than actual differences in criminal behavior.
+
+Ethical and legal constraints: UCR data are public domain (U.S. federal government work, 17 U.S.C. § 105). No personally identifiable information is included. The FBI explicitly cautions against using UCR data to rank or compare locations.
+
+Relation to research questions: Provides the dependent variables (crime counts by type) for all four research questions.
+Dataset 2 — USDA ERS Poverty Estimates, 2023
+Source: U.S. Census Bureau Small Area Income and Poverty Estimates (SAIPE), accessed via USDA Economic Research Service URL: https://ers.usda.gov/data-products/county-level-data-sets Location in repository: data/PovertyReport.xlsx Format: Excel (.xlsx)
+
+State-level poverty estimates for 2023, including the percentage of all people in poverty and the percentage of children in poverty, with 90% confidence intervals. The dataset covers all 50 states, the District of Columbia, and a national aggregate row (excluded from analysis). Variables used: Name (state) and Percent (overall poverty rate, 2023).
+
+The data are model-based estimates produced by the SAIPE program using administrative records and survey data, so they carry statistical uncertainty as reflected in the confidence intervals.
+
+Ethical and legal constraints: Public domain U.S. government data with no redistribution restrictions.
+
+Relation to research questions: Independent variable for RQ1 and contributes to RQ4.
+Dataset 3 — USDA ERS Unemployment and Median Household Income
+Source: Bureau of Labor Statistics LAUS program (unemployment) and Census Bureau SAIPE (income), accessed via USDA ERS URL: https://ers.usda.gov/data-products/county-level-data-sets Location in repository: data/UnemploymentReport.xlsx Format: Excel (.xlsx)
+
+State-level annual unemployment rates from 2015 through 2023 and median household income for 2022. Covers all 50 states, the District of Columbia, and Puerto Rico (excluded from merged analysis because it is not present in the crime or poverty datasets). Variables used: Name (state), 2023 unemployment rate, Median Household Income (2022).
+
+Ethical and legal constraints: Public domain U.S. government data.
+
+Relation to research questions: Provides the independent variables for RQ2 (unemployment) and RQ3 (income), and contributes to RQ4.
+Integration
+All three datasets share state name as a common key. The crime dataset's state names were converted to title case (.str.title()) to match the format used in the poverty and unemployment datasets, and inner joins on State were used to retain only states present in all three sources. The resulting merged dataset contains one row per state with poverty rate, unemployment rate, median household income, and crime counts as variables.
 
 ## Data Quality
 
