@@ -116,9 +116,9 @@ Variables:
     Description: Number of motor vehicle theft offenses reported, aggregated
                  to state level.
 
---------------------------------------------------------------------------------
+
 SOURCE DATASETS
---------------------------------------------------------------------------------
+
 
 1. data/PovertyReport.xlsx
    Source : USDA Economic Research Service (ERS) / U.S. Census Bureau SAIPE
