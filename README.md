@@ -50,7 +50,7 @@ Relation to research questions: Provides the dependent variables (crime counts b
 ### Dataset 2 — USDA ERS Poverty Estimates, 2023
 Source: U.S. Census Bureau Small Area Income and Poverty Estimates (SAIPE), accessed via USDA Economic Research Service URL: https://ers.usda.gov/data-products/county-level-data-sets Location in repository: data/PovertyReport.xlsx Format: Excel (.xlsx)
 
-State-level poverty estimates for 2023, including the percentage of all people in poverty and the percentage of children in poverty, with 90% confidence intervals. The dataset covers all 48 states, the District of Columbia, and a national aggregate row (excluded from analysis). Variables used: Name (state) and Percent (overall poverty rate, 2023).
+State-level poverty estimates for 2023, including the percentage of all people in poverty and the percentage of children in poverty, with 90% confidence intervals. The dataset covers all 50 states, the District of Columbia, and a national aggregate row (excluded from analysis). Variables used: Name (state) and Percent (overall poverty rate, 2023).
 
 The data are model-based estimates produced by the SAIPE program using administrative records and survey data, so they carry statistical uncertainty as reflected in the confidence intervals.
 
@@ -61,7 +61,7 @@ Relation to research questions: Independent variable for RQ1 and contributes to 
 ### Dataset 3 — USDA ERS Unemployment and Median Household Income
 Source: Bureau of Labor Statistics LAUS program (unemployment) and Census Bureau SAIPE (income), accessed via USDA ERS URL: https://ers.usda.gov/data-products/county-level-data-sets Location in repository: data/UnemploymentReport.xlsx Format: Excel (.xlsx)
 
-State-level annual unemployment rates from 2015 through 2023 and median household income for 2022. Covers all 48 states, the District of Columbia, and Puerto Rico (excluded from merged analysis because it is not present in the crime or poverty datasets). Variables used: Name (state), 2023 unemployment rate, Median Household Income (2022).
+State-level annual unemployment rates from 2015 through 2023 and median household income for 2022. Covers all 50 states, the District of Columbia, and Puerto Rico (excluded from merged analysis because it is not present in the crime or poverty datasets). Variables used: Name (state), 2023 unemployment rate, Median Household Income (2022).
 
 Ethical and legal constraints: Public domain U.S. government data.
 
@@ -181,7 +181,7 @@ Currency formatting in income column. Median household income was stored as text
 
 Temporal alignment. Crime data are from 2024, poverty from 2023, income from 2022. We treated these as approximately contemporaneous because state-level socioeconomic structure changes slowly, but this is a real limitation we would address in follow-up work by aligning to a single reference year.
 
-Small sample size. Our final dataset has only 48 observations (states + DC). Correlation and regression estimates based on n ≈ 51 carry substantial uncertainty, and small-sample effects can drive what look like meaningful relationships. We chose to report correlations as descriptive statistics rather than as hypothesis tests for this reason.
+Small sample size. Our final dataset has only 48 observations (states + DC). Correlation and regression estimates based on n ≈ 48 carry substantial uncertainty, and small-sample effects can drive what look like meaningful relationships. We chose to report correlations as descriptive statistics rather than as hypothesis tests for this reason.
 
 These challenges all map back to the data-cleaning operations described above; each cleaning step is a response to a specific challenge we encountered during data profiling.
 
