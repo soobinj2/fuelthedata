@@ -145,8 +145,79 @@ Overall, these results suggest that unemployment plays a more significant role i
 
 ## Future Work
 
+Several directions could meaningfully extend this analysis.
+
+Normalize crime by population. The single most important next step is to convert raw crime counts to per-capita rates (e.g., crimes per 100,000 residents). Large-population states naturally have larger absolute crime counts, and this confounds correlations between socioeconomic variables and crime. Using rates rather than counts would isolate genuine differences in crime intensity from differences in state size. We have prepared the data structure to support this; we simply need to merge in state population estimates and divide.
+
+Add socioeconomic variables. The three predictors we examined—poverty, unemployment, income—are commonly cited but far from exhaustive. Education attainment (for example, the percentage of adults with a bachelor's degree), urbanization, income inequality (Gini coefficient), age structure, and racial/ethnic composition have all been linked to crime in prior research. Including these would substantially improve model explanatory power and yield a more nuanced picture of which factors matter.
+
+Move from cross-sectional to longitudinal. The unemployment dataset already includes annual values from 2015 through 2023. Combining this with multiple years of UCR data would enable panel-data analysis—asking whether changes in unemployment within a state predict changes in crime in subsequent years, rather than only comparing across states at a single point in time. This kind of analysis is much closer to causal inference than cross-sectional correlation.
+
+Move to county or city level. State-level analysis hides substantial within-state variation. The USDA ERS datasets are available at the county level, and the FBI UCR data are at the agency level (which can be aggregated to county). Running the analysis at a finer geographic resolution would dramatically increase the sample size (from ~50 states to thousands of counties) and reveal patterns invisible at the state level.
+
+More rigorous statistical methods. Beyond simple linear regression, we could apply spatial regression (to account for geographic autocorrelation between neighboring states), regularized regression like LASSO (to handle multicollinearity among predictors), or hierarchical models (to account for variation across regions). Each of these would address specific limitations of the basic OLS regression we used.
+
+Account for reporting differences. UCR data depend on voluntary law enforcement reporting and may underrepresent crime in agencies with lower participation rates. Cross-referencing with the Bureau of Justice Statistics' National Crime Victimization Survey would help triangulate the true crime burden, especially for crimes that are likely underreported.
+
+Lessons learned. Working through this project taught us that data cleaning is rarely a single step but a sequence of small, specific fixes that each address a distinct quality issue. We also learned that the choice of analytic unit matters enormously: aggregating city-level crime data to the state level was necessary for integration but introduced the population-confounding issue that limits the strength of our conclusions. Finally, we learned that the first round of analysis is rarely the final word — patterns observed at the state level open up further questions about why those patterns exist and what they would look like at finer scales.
+
 ## Challenges
+We encountered several substantive challenges during the project, which shaped both the workflow and our final approach.
+
+Excel file structure. The raw Excel files from FBI UCR and USDA ERS were not clean tabular data — they included headers, footnote rows, multi-row column labels, and explanation text intended for human readers. We could not load them directly with pd.read_excel(...) because the parser would treat the header rows as data. We used the skiprows parameter to skip the metadata rows and locate where the actual table started, which required manual inspection of each file.
+
+Column naming inconsistencies. The crime dataset's column names included embedded newline characters (e.g., Murder and\nnonnegligent\nmanslaughter) and surrounding whitespace, which made them difficult to reference in code. Standard string operations (str.replace('\n', ' ') followed by .str.strip()) resolved this but only after we identified the issue through exploratory printing of crime.columns.
+
+Mismatched analysis units. This was the most consequential challenge. The crime data are reported at the city level (multiple rows per state), while the poverty and unemployment data are at the state level. Direct merging would have produced a many-to-one mismatch. We solved this by aggregating crime data to the state level via groupby('State').sum().reset_index(), but this aggregation introduces the issue that crime totals reflect both crime intensity and state population — a limitation that affects all of our findings.
+
+State name format mismatch. The crime dataset's State column was uppercase (e.g., "ALABAMA"), while the other two datasets were title case ("Alabama"). Without standardization the merge would have produced no matches at all. Applying .str.title() resolved this.
+
+Currency formatting in income column. Median household income was stored as text with a dollar sign and comma (e.g., "$59,703"). We had to strip these characters before converting to numeric, otherwise the column would have remained as strings and could not be used in regression analysis.
+
+Temporal alignment. Crime data are from 2024, poverty from 2023, income from 2022. We treated these as approximately contemporaneous because state-level socioeconomic structure changes slowly, but this is a real limitation we would address in follow-up work by aligning to a single reference year.
+
+Small sample size. Our final dataset has only 50 observations (states + DC). Correlation and regression estimates based on n ≈ 51 carry substantial uncertainty, and small-sample effects can drive what look like meaningful relationships. We chose to report correlations as descriptive statistics rather than as hypothesis tests for this reason.
+
+These challenges all map back to the data-cleaning operations described above; each cleaning step is a response to a specific challenge we encountered during data profiling.
 
 ## Reproducing
+
+To reproduce this analysis from scratch:
+
+1.	Clone the repository:
+
+git clone https://github.com/soobinj2/fuelthedata.git
+
+cd fuelthedata
+
+2.	Install Python dependencies:
+
+pip install -r requirements.txt
+
+3.	Verify the input data files. The data/ directory should contain:
+
+-	data/PovertyReport.xlsx
+-	data/UnemploymentReport.xlsx
+-	data/offenses-known-to-le-2024/CIUS_Table_8_Offenses_Known_to_Law_Enforcement_by_State_by_City_2024.xlsx
+
+These files are committed to the repository. If you need to re-acquire them from the original sources, see scripts/download_data.py for documentation of the manual download steps (the source websites do not provide direct download URLs).
+
+4.	Verify data integrity:
+
+python scripts/download_data.py
+
+This script computes SHA-256 hashes of each input file and compares them against the values recorded in checksums.txt. All three files should report [PASS].
+
+5.	Run the data integration script to produce the merged dataset:
+
+python scripts/clean_and_merge.py
+
+This produces results/merged_data.csv.
+
+6.	Run the analysis notebook:
+
+jupyter notebook data_analysis/dataanalysis_1.ipynb
+
+Run all cells (Kernel → Restart & Run All) to reproduce all visualizations and statistical outputs. The pre-computed visualization outputs are also stored in results/figures/.
 
 ## References
