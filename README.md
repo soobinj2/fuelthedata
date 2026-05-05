@@ -30,7 +30,8 @@ We also observed that crime variables themselves are highly intercorrelated (r >
 Overall, the analysis suggests that unemployment is a more consistent socioeconomic correlate of crime than either poverty or income, but that the explanatory power of these variables individually is modest. This points to the need for additional factors—such as education, urbanization, population density, and demographic composition—to fully understand state-level crime variation.
 
 ## Data Profile
-Dataset 1 — FBI Uniform Crime Reporting (UCR), 2024
+
+# Dataset 1 — FBI Uniform Crime Reporting (UCR), 2024
 Source: FBI Crime Data Explorer, "Offenses Known to Law Enforcement by State by City, 2024" (CIUS Table 8) URL: https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/downloads Location in repository: data/offenses-known-to-le-2024/CIUS_Table_8_Offenses_Known_to_Law_Enforcement_by_State_by_City_2024.xlsx Format: Excel (.xlsx)
 
 This dataset contains counts of reported offenses by city within each state. Variables used in this analysis: State, Violent crime, Murder and nonnegligent manslaughter, Rape, Robbery, Aggravated assault, Property crime, Burglary, Larceny-theft, and Motor vehicle theft. Because the dataset is reported at the city level, we aggregated all cities within each state using groupby('State').sum() to produce state-level totals.
@@ -41,7 +42,7 @@ Ethical and legal constraints: UCR data are public domain (U.S. federal governme
 
 Relation to research questions: Provides the dependent variables (crime counts by type) for all four research questions.
 
-#Dataset 2 — USDA ERS Poverty Estimates, 2023
+# Dataset 2 — USDA ERS Poverty Estimates, 2023
 Source: U.S. Census Bureau Small Area Income and Poverty Estimates (SAIPE), accessed via USDA Economic Research Service URL: https://ers.usda.gov/data-products/county-level-data-sets Location in repository: data/PovertyReport.xlsx Format: Excel (.xlsx)
 
 State-level poverty estimates for 2023, including the percentage of all people in poverty and the percentage of children in poverty, with 90% confidence intervals. The dataset covers all 50 states, the District of Columbia, and a national aggregate row (excluded from analysis). Variables used: Name (state) and Percent (overall poverty rate, 2023).
@@ -52,7 +53,7 @@ Ethical and legal constraints: Public domain U.S. government data with no redist
 
 Relation to research questions: Independent variable for RQ1 and contributes to RQ4.
 
-#Dataset 3 — USDA ERS Unemployment and Median Household Income
+# Dataset 3 — USDA ERS Unemployment and Median Household Income
 Source: Bureau of Labor Statistics LAUS program (unemployment) and Census Bureau SAIPE (income), accessed via USDA ERS URL: https://ers.usda.gov/data-products/county-level-data-sets Location in repository: data/UnemploymentReport.xlsx Format: Excel (.xlsx)
 
 State-level annual unemployment rates from 2015 through 2023 and median household income for 2022. Covers all 50 states, the District of Columbia, and Puerto Rico (excluded from merged analysis because it is not present in the crime or poverty datasets). Variables used: Name (state), 2023 unemployment rate, Median Household Income (2022).
