@@ -9,7 +9,6 @@ Usage:
     snakemake clean_and_merge     # Create merged dataset only
 """
 
-# ── Configuration ──────────────────────────────────────────────────────────────
 DATA_DIR     = "data"
 SCRIPTS_DIR  = "scripts"
 RESULTS_DIR  = "results"
@@ -25,7 +24,6 @@ MERGED_DATA   = f"{RESULTS_DIR}/merged_data.csv"
 CHECKSUMS     = "checksums.txt"
 NOTEBOOK      = f"{NOTEBOOK_DIR}/dataanalysis_1.ipynb"
 
-# ── Rules ──────────────────────────────────────────────────────────────────────
 
 rule all:
     """
