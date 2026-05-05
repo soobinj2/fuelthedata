@@ -1,0 +1,13 @@
+# SHA-256 Checksums for input datasets
+# Generated for IS 477 Final Project: fuelthedata
+#
+# To verify, run:
+#   python scripts/download_data.py
+# Or manually:
+#   sha256sum data/PovertyReport.xlsx
+#   sha256sum data/UnemploymentReport.xlsx
+#   sha256sum data/offenses-known-to-le-2024/CIUS_Table_8_Offenses_Known_to_Law_Enforcement_by_State_by_City_2024.xlsx
+
+819b551881fae3287f030ad0d9dd78752675d534e6bc5068d6477456431fb336  data/PovertyReport.xlsx
+601fe18d0e8d8f6c721f1f4a8c2dc6cf1065ee745dda8c35f0b8a6205655daa4  data/UnemploymentReport.xlsx
+0e32917c588b0ce448559b0b3666b55096688ccb252a235093ef71913d5a0fdc  data/offenses-known-to-le-2024/CIUS_Table_8_Offenses_Known_to_Law_Enforcement_by_State_by_City_2024.xlsx
