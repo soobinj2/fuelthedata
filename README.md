@@ -4,7 +4,12 @@
 
 # Title
 
+## Fuel the Data: Crime and Socioeconomic Factors in the United States
+
 ## Contributors
+
+### Soobin Jang ,Jiseok Han
+
 
 ## Summary
 Crime rates in the United States vary considerably from state to state, and these differences are widely believed to reflect underlying socioeconomic conditions. While crime is shaped by many factors—historical, cultural, institutional—poverty, unemployment, and income inequality are commonly cited as structural drivers. This project investigates how these socioeconomic indicators relate to crime levels across U.S. states, with the goal of identifying which factors are most strongly associated with higher crime.
