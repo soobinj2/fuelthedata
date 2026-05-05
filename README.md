@@ -40,7 +40,8 @@ The UCR program is voluntary and not all law enforcement agencies report consist
 Ethical and legal constraints: UCR data are public domain (U.S. federal government work, 17 U.S.C. § 105). No personally identifiable information is included. The FBI explicitly cautions against using UCR data to rank or compare locations.
 
 Relation to research questions: Provides the dependent variables (crime counts by type) for all four research questions.
-Dataset 2 — USDA ERS Poverty Estimates, 2023
+
+#Dataset 2 — USDA ERS Poverty Estimates, 2023
 Source: U.S. Census Bureau Small Area Income and Poverty Estimates (SAIPE), accessed via USDA Economic Research Service URL: https://ers.usda.gov/data-products/county-level-data-sets Location in repository: data/PovertyReport.xlsx Format: Excel (.xlsx)
 
 State-level poverty estimates for 2023, including the percentage of all people in poverty and the percentage of children in poverty, with 90% confidence intervals. The dataset covers all 50 states, the District of Columbia, and a national aggregate row (excluded from analysis). Variables used: Name (state) and Percent (overall poverty rate, 2023).
@@ -50,7 +51,8 @@ The data are model-based estimates produced by the SAIPE program using administr
 Ethical and legal constraints: Public domain U.S. government data with no redistribution restrictions.
 
 Relation to research questions: Independent variable for RQ1 and contributes to RQ4.
-Dataset 3 — USDA ERS Unemployment and Median Household Income
+
+#Dataset 3 — USDA ERS Unemployment and Median Household Income
 Source: Bureau of Labor Statistics LAUS program (unemployment) and Census Bureau SAIPE (income), accessed via USDA ERS URL: https://ers.usda.gov/data-products/county-level-data-sets Location in repository: data/UnemploymentReport.xlsx Format: Excel (.xlsx)
 
 State-level annual unemployment rates from 2015 through 2023 and median household income for 2022. Covers all 50 states, the District of Columbia, and Puerto Rico (excluded from merged analysis because it is not present in the crime or poverty datasets). Variables used: Name (state), 2023 unemployment rate, Median Household Income (2022).
