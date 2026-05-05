@@ -1,0 +1,135 @@
+{
+  "@context": "https://schema.org/",
+  "@type": "Dataset",
+  "name": "Fuel the Data: Crime and Socioeconomic Factors in the United States",
+  "description": "A state-level dataset integrating FBI Uniform Crime Reporting (UCR) offense data (2024) with USDA Economic Research Service socioeconomic indicators (poverty rate 2023, unemployment rate 2023, median household income 2022) for 48 U.S. states. Created for IS 477 Final Project at the University of Illinois Urbana-Champaign.",
+  "url": "https://github.com/soobinj2/fuelthedata",
+  "identifier": "https://github.com/soobinj2/fuelthedata",
+  "creator": [
+    {
+      "@type": "Person",
+      "name": "Soobin Jang"
+    },
+    {
+      "@type": "Person",
+      "name": "Jiseok Han"
+    }
+  ],
+  "datePublished": "2026-05-05",
+  "dateModified": "2026-05-05",
+  "license": "https://opensource.org/licenses/MIT",
+  "keywords": [
+    "crime",
+    "socioeconomic",
+    "poverty",
+    "unemployment",
+    "median household income",
+    "United States",
+    "state-level",
+    "FBI UCR",
+    "USDA ERS",
+    "data integration",
+    "IS477"
+  ],
+  "spatialCoverage": {
+    "@type": "Place",
+    "name": "United States of America",
+    "description": "48 U.S. states (Florida, Minnesota, and District of Columbia excluded due to data formatting issues)"
+  },
+  "temporalCoverage": "2022/2024",
+  "variableMeasured": [
+    {
+      "@type": "PropertyValue",
+      "name": "Poverty Rate",
+      "description": "Percentage of population below the federal poverty line (2023)",
+      "unitText": "percent"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Unemployment Rate",
+      "description": "Annual average unemployment rate (2023)",
+      "unitText": "percent"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Median Household Income (2022)",
+      "description": "Estimated median household income (2022)",
+      "unitText": "US dollars"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Violent crime",
+      "description": "Total violent crime offenses reported to law enforcement (2024), aggregated to state level",
+      "unitText": "count"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Property crime",
+      "description": "Total property crime offenses reported to law enforcement (2024), aggregated to state level",
+      "unitText": "count"
+    }
+  ],
+  "includedInDataCatalog": {
+    "@type": "DataCatalog",
+    "name": "GitHub",
+    "url": "https://github.com"
+  },
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "contentUrl": "https://github.com/soobinj2/fuelthedata/raw/main/data/PovertyReport.xlsx",
+      "name": "PovertyReport.xlsx"
+    },
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "contentUrl": "https://github.com/soobinj2/fuelthedata/raw/main/data/UnemploymentReport.xlsx",
+      "name": "UnemploymentReport.xlsx"
+    },
+    {
+      "@type": "DataDownload",
+      "encodingFormat": "text/csv",
+      "contentUrl": "https://github.com/soobinj2/fuelthedata/raw/main/results/merged_data.csv",
+      "name": "merged_data.csv"
+    }
+  ],
+  "isBasedOn": [
+    {
+      "@type": "Dataset",
+      "name": "FBI Uniform Crime Reporting — Offenses Known to Law Enforcement, Table 8 (2024)",
+      "url": "https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/downloads",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Federal Bureau of Investigation"
+      },
+      "license": "https://www.usa.gov/government-works"
+    },
+    {
+      "@type": "Dataset",
+      "name": "USDA ERS County-Level Data Sets — Poverty Estimates (2023)",
+      "url": "https://ers.usda.gov/data-products/county-level-data-sets",
+      "publisher": {
+        "@type": "Organization",
+        "name": "U.S. Department of Agriculture, Economic Research Service"
+      },
+      "license": "https://www.usa.gov/government-works"
+    },
+    {
+      "@type": "Dataset",
+      "name": "USDA ERS County-Level Data Sets — Unemployment and Median Household Income (2023)",
+      "url": "https://ers.usda.gov/data-products/county-level-data-sets",
+      "publisher": {
+        "@type": "Organization",
+        "name": "U.S. Department of Agriculture, Economic Research Service"
+      },
+      "license": "https://www.usa.gov/government-works"
+    }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "University of Illinois Urbana-Champaign",
+    "url": "https://illinois.edu"
+  },
+  "inLanguage": "en"
+}
