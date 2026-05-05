@@ -1,0 +1,166 @@
+================================================================================
+DATA DICTIONARY
+IS 477 Final Project: Fuel the Data
+Crime and Socioeconomic Factors in the United States
+================================================================================
+
+--------------------------------------------------------------------------------
+MERGED DATASET: results/merged_data.csv
+--------------------------------------------------------------------------------
+This is the primary analysis dataset produced by scripts/clean_and_merge.py.
+It contains state-level socioeconomic and crime variables for 48 U.S. states.
+
+Note: Florida, Minnesota, and the District of Columbia are excluded from the
+merged dataset due to formatting inconsistencies in the FBI UCR source file
+(footnote markers and capitalization differences in state names).
+
+Variables:
+
+  State
+    Type    : String
+    Source  : All three datasets (join key)
+    Description: U.S. state name (title case, e.g., "Alabama")
+    Values  : 48 U.S. state names
+
+  Poverty Rate
+    Type    : Float
+    Unit    : Percent (%)
+    Source  : data/PovertyReport.xlsx (USDA ERS / U.S. Census SAIPE, 2023)
+    Description: Estimated percentage of all people living below the federal
+                 poverty line, 2023. Model-based estimates from the Census
+                 Bureau Small Area Income and Poverty Estimates program.
+    Range   : Approximately 7.0 – 19.0
+
+  Unemployment Rate
+    Type    : Float
+    Unit    : Percent (%)
+    Source  : data/UnemploymentReport.xlsx (USDA ERS / BLS LAUS, 2023)
+    Description: Annual average unemployment rate for 2023. Produced by the
+                 Bureau of Labor Statistics Local Area Unemployment Statistics
+                 program.
+    Range   : Approximately 2.0 – 5.5
+
+  Median Household Income (2022)
+    Type    : Float
+    Unit    : U.S. Dollars ($)
+    Source  : data/UnemploymentReport.xlsx (USDA ERS / U.S. Census SAIPE, 2022)
+    Description: Estimated median household income for 2022. Converted from
+                 currency-formatted string (e.g., "$59,703") to numeric during
+                 cleaning.
+    Range   : Approximately $50,000 – $100,000
+
+  Violent crime
+    Type    : Float
+    Unit    : Count (number of offenses)
+    Source  : data/offenses-known-to-le-2024/CIUS_Table_8_...xlsx (FBI UCR, 2024)
+    Description: Total number of violent crimes reported to law enforcement in
+                 2024, aggregated from city level to state level. Includes
+                 murder, rape, robbery, and aggravated assault.
+    Range   : Approximately 1,000 – 160,000
+
+  Murder and nonnegligent manslaughter
+    Type    : Float
+    Unit    : Count (number of offenses)
+    Source  : FBI UCR 2024 (CIUS Table 8)
+    Description: Number of willful killings of one human being by another,
+                 aggregated to state level.
+
+  Rape
+    Type    : Float
+    Unit    : Count (number of offenses)
+    Source  : FBI UCR 2024 (CIUS Table 8)
+    Description: Number of rape offenses reported, aggregated to state level.
+                 Uses the revised UCR definition.
+
+  Robbery
+    Type    : Float
+    Unit    : Count (number of offenses)
+    Source  : FBI UCR 2024 (CIUS Table 8)
+    Description: Number of robbery offenses (taking property from a person
+                 by force or threat), aggregated to state level.
+
+  Aggravated assault
+    Type    : Float
+    Unit    : Count (number of offenses)
+    Source  : FBI UCR 2024 (CIUS Table 8)
+    Description: Number of aggravated assault offenses reported, aggregated
+                 to state level.
+
+  Property crime
+    Type    : Float
+    Unit    : Count (number of offenses)
+    Source  : FBI UCR 2024 (CIUS Table 8)
+    Description: Total property crimes reported (burglary + larceny-theft +
+                 motor vehicle theft), aggregated to state level.
+
+  Burglary
+    Type    : Float
+    Unit    : Count (number of offenses)
+    Source  : FBI UCR 2024 (CIUS Table 8)
+    Description: Number of burglary offenses (unlawful entry into a structure
+                 to commit a felony or theft), aggregated to state level.
+
+  Larceny- theft
+    Type    : Float
+    Unit    : Count (number of offenses)
+    Source  : FBI UCR 2024 (CIUS Table 8)
+    Description: Number of larceny-theft offenses (unlawful taking of property
+                 without force), aggregated to state level.
+    Note    : Column name includes a space after the hyphen ("Larceny- theft")
+              as it appears in the original FBI source file.
+
+  Motor vehicle theft
+    Type    : Float
+    Unit    : Count (number of offenses)
+    Source  : FBI UCR 2024 (CIUS Table 8)
+    Description: Number of motor vehicle theft offenses reported, aggregated
+                 to state level.
+
+--------------------------------------------------------------------------------
+SOURCE DATASETS
+--------------------------------------------------------------------------------
+
+1. data/PovertyReport.xlsx
+   Source : USDA Economic Research Service (ERS) / U.S. Census Bureau SAIPE
+   URL    : https://ers.usda.gov/data-products/county-level-data-sets
+   Year   : 2023
+   Level  : State
+   Format : Excel (.xlsx), data starts at row 6 (skiprows=5)
+   Key columns used: Name (state), Percent (poverty rate)
+   License: Public domain (U.S. federal government work)
+
+2. data/UnemploymentReport.xlsx
+   Source : USDA Economic Research Service (ERS) / BLS LAUS / Census SAIPE
+   URL    : https://ers.usda.gov/data-products/county-level-data-sets
+   Year   : 2023 (unemployment), 2022 (median income)
+   Level  : State
+   Format : Excel (.xlsx), data starts at row 4 (skiprows=3)
+   Key columns used: Name (state), 2023 (unemployment rate),
+                     Median Household Income (2022)
+   License: Public domain (U.S. federal government work)
+
+3. data/offenses-known-to-le-2024/CIUS_Table_8_Offenses_Known_to_Law_
+   Enforcement_by_State_by_City_2024.xlsx
+   Source : FBI Uniform Crime Reporting (UCR) Program / Crime Data Explorer
+   URL    : https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/downloads
+   Year   : 2024
+   Level  : City (aggregated to state for this analysis)
+   Format : Excel (.xlsx), data starts at row 4 (skiprows=3)
+   Key columns used: State, Violent crime, Murder and nonnegligent
+                     manslaughter, Rape, Robbery, Aggravated assault,
+                     Property crime, Burglary, Larceny- theft,
+                     Motor vehicle theft
+   License: Public domain (U.S. federal government work)
+
+--------------------------------------------------------------------------------
+INTEGRATION NOTES
+--------------------------------------------------------------------------------
+- All three datasets were merged on the "State" column using inner joins.
+- Crime data was aggregated from city level to state level using groupby().sum()
+  before merging.
+- State names in the crime dataset were standardized to title case (.str.title())
+  to match the poverty and unemployment datasets.
+- Median household income was converted from currency string to float.
+- See scripts/clean_and_merge.py for the complete integration workflow.
+
+--------------------------------------------------------------------------------
