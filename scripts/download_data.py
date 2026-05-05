@@ -34,7 +34,6 @@ import hashlib
 import os
 import sys
 
-# ── Expected checksums (from checksums.txt) ────────────────────────────────────
 EXPECTED = {
     "data/PovertyReport.xlsx":
         "819b551881fae3287f030ad0d9dd78752675d534e6bc5068d6477456431fb336",
@@ -65,23 +64,19 @@ def verify_all(generate: bool = False) -> bool:
     for rel_path, expected_hash in EXPECTED.items():
         print(f"\nFile : {rel_path}")
 
-        # 1. Check file exists
         if not os.path.isfile(rel_path):
             print(f"  [MISSING] File not found.")
             print(f"  → Please download and place it at: {rel_path}")
             all_passed = False
             continue
 
-        # 2. Compute hash
         actual_hash = sha256(rel_path)
         print(f"  SHA-256: {actual_hash}")
 
-        # 3. If --generate mode, just print (used to populate checksums.txt)
         if generate:
             print(f"  [GENERATED] Add this to checksums.txt")
             continue
 
-        # 4. Compare
         if expected_hash is None:
             print(f"  [SKIP] No expected checksum recorded yet.")
             print(f"  → Run with --generate flag to compute and record it.")
