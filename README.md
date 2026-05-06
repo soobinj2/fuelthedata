@@ -226,3 +226,10 @@ jupyter notebook data_analysis/dataanalysis_1.ipynb
 Run all cells (Kernel → Restart & Run All) to reproduce all visualizations and statistical outputs. The pre-computed visualization outputs are also stored in results/figures/.
 
 ## References
+
+### Datasets
+Federal Bureau of Investigation. (2024). Crime in the United States: Offenses Known to Law Enforcement by State by City, 2024 (CIUS Table 8). FBI Crime Data Explorer. https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/downloads
+U.S. Department of Agriculture, Economic Research Service. (2023). County-level data sets: Poverty estimates. https://ers.usda.gov/data-products/county-level-data-sets
+U.S. Department of Agriculture, Economic Research Service. (2023). County-level data sets: Unemployment and median household income. https://ers.usda.gov/data-products/county-level-data-sets
+
+This study was conducted with the assistance of AI tools for debugging support and improving the naturalness of written expressions.
