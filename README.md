@@ -71,38 +71,46 @@ All three datasets share state name as a common key. The crime dataset's state n
 
 ## Data Quality
 
-We conducted several checks to assess the quality and reliability of the dataset before performing analysis.
+In this project, data quality was evaluated from various angles to secure the reliability and validity of the analysis. Data quality is a very important factor in the data analysis process, and defects or inconsistencies in data can lead to incorrect interpretation and results. Therefore, in this study, a systematic check was conducted focusing on data completeness, consistency, distribution characteristics, the presence of outliers, and structural consistency between datasets.
 
-First, we verified the presence of missing values using `.isnull().sum()`. The results showed that there were no missing values across all variables, indicating that the dataset is complete and does not require imputation.
+First, in order to confirm the completeness of the data, the presence or absence of missing values was reviewed using the function '.isnull().sum()'. As a result, no missing values were found in all variables, which means that the data are composed in complete form. The fact that there are no missing values indicates that additional preprocessing processes such as data removal or imputation are not required in the analysis process, and act as an important factor to increase the reliability of the result.
 
-Next, we examined summary statistics using `.describe()` to understand the distribution, range, and variability of each variable. This allowed us to identify differences in scale across variables, as well as potential anomalies.
+Next, the basic statistics of each variable were analyzed using the function '.describe()'. Through this, the mean, standard deviation, minimum, and maximum values of the variables were confirmed, and it was confirmed that there was a scale difference between the variables. For example, poverty rates and unemployment rates are expressed in a relatively narrow range of percentage values, while crime-related variables have a much larger range, measured in number. This scale difference was recognized as an important factor to consider in the analysis process as it can affect the interpretation of results in statistical techniques such as regression analysis.
 
-We also visualized the distribution of key variables using histograms. For example, the poverty rate distribution appeared relatively concentrated within a specific range, suggesting consistency across states.
+In addition, the distribution of major variables was visually confirmed using a histogram. The poverty rate showed a concentrated distribution within a relatively certain range, suggesting that the level of poverty between states was not significantly different. On the other hand, the crime variables were distributed over a wider range, and some values were very high. This means that the difference in crime levels between states is quite large, reflecting that various social factors are at play.
 
-To further assess data quality, we used boxplots to detect potential outliers in crime-related variables. The boxplot for violent crime revealed several extreme values. These outliers likely represent real-world variations between states rather than data errors, so they were retained for analysis.
+A box plot was used to check the existence of outliers in the data. In particular, some extreme values were observed in the violent crime variable, which were found to be significantly out of the quartile range. As a result of considering the context of the data to determine whether these values are simple input errors, this was interpreted as a real phenomenon reflecting the high crime rate of a specific state. Therefore, these outliers were maintained without removing them to preserve the reality of the data.
 
-Additionally, correlation analysis was performed to understand relationships between variables. While this is primarily used for analysis, it also helped confirm that variables behave as expected (e.g., crime variables being highly correlated with each other).
+In addition, a correlation analysis was performed to confirm the relationship between the variables. There was a high correlation of 0.9 or more between crime variables, which shows that different types of crimes tend to occur together in similar social environments. These results serve as an important basis for supporting the internal consistency of the data. On the other hand, the correlation between socioeconomic variables and crimes was relatively low or intermediate, which is consistent with actual social phenomena.
 
-Overall, the dataset is clean, complete, and suitable for analysis, with some natural variability and outliers that reflect real-world differences rather than data quality issues.
+In addition, work was performed to ensure consistency between datasets. Data collected from different sources differed in variable names, spaces, and new line characters, and they were organized and unified in a consistent format. In particular, the work of matching the notation method of the "State" variable to the same played a very important role in the data merger process.
+
+In addition, differences in unit levels of data were also important considerations. Crime data was provided at the city level, while socioeconomic data were provided at the weekly level. To solve this problem, a process of aggregating crime data on a weekly basis was performed, allowing all variables to be matched to the same analysis unit.
+
+Finally, the source of the data was also considered an important factor in the data quality assessment. The data used in this study were collected from government statistical data and public institutions such as the FBI's Uniform Crime Reporting (UCR) system, which acts as a factor to increase the accuracy and reliability of the data.
+
+Overall, this dataset has no missing values, is structurally consistent, and shows realistic distribution and relationships between variables, so it is judged to have a high level of data quality suitable for analysis. However, since this data is based on data at a specific point in time, there is a limitation that it cannot reflect the trend of changes over time.
 
 
 ## Data Cleaning
 
-The datasets required multiple preprocessing steps to ensure consistency and usability for analysis.
+In this project, a systematic data cleaning process was performed to integrate data collected from different sources and use them for analysis. Data purification is not a simple preprocessing step, but a key process for securing the accuracy and reliability of analysis, and includes data format unification, unnecessary information removal, variable selection, data merger, and unit alignment.
 
-First, we selected only the relevant columns from each dataset. For example, from the poverty dataset, we extracted the "Name" and "Percent" columns and renamed them to "State" and "Poverty Rate" for clarity. Similarly, from the unemployment dataset, we selected the 2023 unemployment rate and standardized the column names.
+First, only variables required for analysis were selected in each dataset. In the poverty data, only the state name and poverty rate variables were extracted, and "Name" was changed to "State" and "Percent" was changed to "Poverty Rate" to clarify the variable name. In the unemployment data, only variables related to the state name and unemployment rate were selected, and variable names were standardized. This variable selection process plays an important role in removing unnecessary data and improving analysis efficiency.
 
-The crime dataset required additional cleaning due to formatting inconsistencies. Column names contained newline characters and extra spaces, which were removed using string replacement and trimming functions. This ensured consistent column naming across the dataset.
+Next, an operation was performed to resolve the format discrepancy of the data. The original data includes a new line character in the column name or there was a problem that it was difficult to access variables because unnecessary spaces were included. To solve this problem, the string processing function was used to remove line modulation characters and spaces, and variable names of consistent formats were created. This process contributes to increasing the readability and reuse of codes and preventing errors that may occur in the data processing process.
 
-Since the crime data was originally at the city level, we aggregated it to the state level using `groupby("State").sum()`. This step was necessary to align it with the poverty and unemployment datasets, which are already at the state level.
+In addition, the format of the "State" variable was unified for merging between datasets. If the main names are different in different datasets, there may be a problem that the data is not connected properly during the merging process. To prevent this, the main names were converted to the same format in all datasets. For example, case and unnecessary spaces were removed to ensure accurate matching.
 
-We also standardized the "State" column across all datasets to ensure consistent formatting (e.g., capitalization), enabling accurate merging.
+In particular, in the case of crime data, unlike other datasets, it was provided in urban units, so an additional refining process was required. In order to unify the analysis unit at the state level, the city-level data was aggregated on a weekly basis using 'groupby("State").sum()'. This process is an important step in making data at different levels comparable, and it can be said to be a core process of data integration.
 
-After cleaning each dataset individually, we merged them into a single dataset using the "State" column as the key. This resulted in a unified dataset containing socioeconomic and crime variables for each state.
+In the data purification process, data merging was also performed. Each dataset was combined based on the common variable "State", through which poverty rate, unemployment rate, income, and various crime variables were integrated into one dataset. After merging, the shape of the data was checked to check the structure of the data, and some samples were output to verify that the variables were correctly aligned.
 
-Finally, we verified the merged dataset by checking its shape and previewing the data to ensure that all variables were correctly aligned and no unintended data loss occurred.
+In addition, in the data purification process, the work of removing unnecessary columns or duplicate data was performed. Some datasets contained explanatory information or metadata that was not required for analysis, and the datasets were simplified by removing them. This process contributes to improving data processing speed and reducing confusion in the analysis process.
 
-These cleaning steps ensured that the final dataset was structured, consistent, and ready for analysis.
+Finally, an iterative verification process was performed to maintain consistency and accuracy throughout the data purification process. Unexpected errors were prevented in advance by checking the format and content of the data at each step. Through this systematic data purification process, it was possible to finally establish a structurally consistent and analysis-appropriate dataset.
+
+Overall, the data purification process of this study focused on resolving differences between various data sources, ensuring consistency of variables, and unifying analysis units. This process is an important basis for ensuring the reliability of the exploratory data analysis and statistical analysis performed later.
 
 
 ## Findings
@@ -147,24 +155,24 @@ Overall, these results suggest that unemployment plays a more significant role i
 
 
 
-
 ## Future Work
 
 Several directions could meaningfully extend this analysis.
 
-Normalize crime by population. The single most important next step is to convert raw crime counts to per-capita rates (e.g., crimes per 100,000 residents). Large-population states naturally have larger absolute crime counts, and this confounds correlations between socioeconomic variables and crime. Using rates rather than counts would isolate genuine differences in crime intensity from differences in state size. We have prepared the data structure to support this; we simply need to merge in state population estimates and divide.
+Normalize crime by population. The single most important next step is to convert raw crime counts to per-capita rates (e.g., crimes per 100,000 residents). Large-population states naturally have larger absolute crime counts, and this confounds correlations between socioeconomic variables and crime. Using rates rather than counts would isolate genuine differences in crime intensity from differences in state size. We have prepared the data structure to support this; we simply need to merge in state population estimates and divide. In addition, if the crime rate to the population is used instead of simply using the total number of crimes, the accuracy of weekly comparisons is expected to improve further. This plays an important role in reducing distortion according to population size and reflecting the actual level of crime more accurately.
 
-Add socioeconomic variables. The three predictors we examined—poverty, unemployment, income—are commonly cited but far from exhaustive. Education attainment (for example, the percentage of adults with a bachelor's degree), urbanization, income inequality (Gini coefficient), age structure, and racial/ethnic composition have all been linked to crime in prior research. Including these would substantially improve model explanatory power and yield a more nuanced picture of which factors matter.
+Add socioeconomic variables. The three predictors we examined—poverty, unemployment, income—are commonly cited but far from exhaustive. Education attainment (for example, the percentage of adults with a bachelor's degree), urbanization, income inequality (Gini coefficient), age structure, and racial/ethnic composition have all been linked to crime in prior research. Including these would substantially improve model explanatory power and yield a more nuanced picture of which factors matter. In particular, when considering various socioeconomic factors together, it is expected that the direct and indirect effects of each variable on crime can be distinguished in more detail.
 
-Move from cross-sectional to longitudinal. The unemployment dataset already includes annual values from 2015 through 2023. Combining this with multiple years of UCR data would enable panel-data analysis—asking whether changes in unemployment within a state predict changes in crime in subsequent years, rather than only comparing across states at a single point in time. This kind of analysis is much closer to causal inference than cross-sectional correlation.
+Move from cross-sectional to longitudinal. The unemployment dataset already includes annual values from 2015 through 2023. Combining this with multiple years of UCR data would enable panel-data analysis—asking whether changes in unemployment within a state predict changes in crime in subsequent years, rather than only comparing across states at a single point in time. This kind of analysis is much closer to causal inference than cross-sectional correlation. In addition, by analyzing patterns of change over time, we can gain additional insight into how the relationship with crime changes in certain economic situations.
 
-Move to county or city level. State-level analysis hides substantial within-state variation. The USDA ERS datasets are available at the county level, and the FBI UCR data are at the agency level (which can be aggregated to county). Running the analysis at a finer geographic resolution would dramatically increase the sample size (from ~48 states to thousands of counties) and reveal patterns invisible at the state level.
+Move to county or city level. State-level analysis hides substantial within-state variation. The USDA ERS datasets are available at the county level, and the FBI UCR data are at the agency level (which can be aggregated to county). Running the analysis at a finer geographic resolution would dramatically increase the sample size (from ~48 states to thousands of counties) and reveal patterns invisible at the state level. Such a detailed analysis can more precisely reflect regional characteristics and will be useful in deriving policy implications.
 
-More rigorous statistical methods. Beyond simple linear regression, we could apply spatial regression (to account for geographic autocorrelation between neighboring states), regularized regression like LASSO (to handle multicollinearity among predictors), or hierarchical models (to account for variation across regions). Each of these would address specific limitations of the basic OLS regression we used.
+More rigorous statistical methods. Beyond simple linear regression, we could apply spatial regression (to account for geographic autocorrelation between neighboring states), regularized regression like LASSO (to handle multicollinearity among predictors), or hierarchical models (to account for variation across regions). Each of these would address specific limitations of the basic OLS regression we used. These methods can more precisely reflect complex relationships between variables and simultaneously improve the reliability and explanatory power of analysis results.
 
-Account for reporting differences. UCR data depend on voluntary law enforcement reporting and may underrepresent crime in agencies with lower participation rates. Cross-referencing with the Bureau of Justice Statistics' National Crime Victimization Survey would help triangulate the true crime burden, especially for crimes that are likely underreported.
+Account for reporting differences. UCR data depend on voluntary law enforcement reporting and may underrepresent crime in agencies with lower participation rates. Cross-referencing with the Bureau of Justice Statistics' National Crime Victimization Survey would help triangulate the true crime burden, especially for crimes that are likely underreported. 
 
-Lessons learned. Working through this project taught us that data cleaning is rarely a single step but a sequence of small, specific fixes that each address a distinct quality issue. We also learned that the choice of analytic unit matters enormously: aggregating city-level crime data to the state level was necessary for integration but introduced the population-confounding issue that limits the strength of our conclusions. Finally, we learned that the first round of analysis is rarely the final word — patterns observed at the state level open up further questions about why those patterns exist and what they would look like at finer scales.
+Lessons learned. Working through this project taught us that data cleaning is rarely a single step but a sequence of small, specific fixes that each address a distinct quality issue. We also learned that the choice of analytic unit matters enormously: aggregating city-level crime data to the state level was necessary for integration but introduced the population-confounding issue that limits the strength of our conclusions. Finally, we learned that the first round of analysis is rarely the final word — patterns observed at the state level open up further questions about why those patterns exist and what they would look like at finer scales. In addition, since this analysis was based on correlation, there is a limit to clearly explaining the causal relationship between variables. In future studies, it is necessary to apply a methodology that can more clearly clarify the causal relationship.
+
 
 ## Challenges
 We encountered several substantive challenges during the project, which shaped both the workflow and our final approach.
@@ -226,6 +234,13 @@ jupyter notebook data_analysis/dataanalysis_1.ipynb
 Run all cells (Kernel → Restart & Run All) to reproduce all visualizations and statistical outputs. The pre-computed visualization outputs are also stored in results/figures/.
 
 ## References
+
+Raphael, S., & Winter‐Ebmer, R. (2001). Identifying the Effect of Unemployment on Crime. The Journal of Law and Economics, 44(1), 259–283. https://doi.org/10.1086/320275
+
+Theodore G. Chiricos, Rates of Crime and Unemployment: An Analysis of Aggregate Research Evidence, Social Problems, Volume 34, Issue 2, 1 April 1987, Pages 187–212, https://doi.org/10.2307/800715
+
+Britt, C. L. (1997). Reconsidering the unemployment and crime relationship: Variation by age group and historical period. Journal of Quantitative Criminology, 13(4), 405–428. https://doi.org/10.1007/bf02221048
+
 
 ### Datasets
 Federal Bureau of Investigation. (2024). Crime in the United States: Offenses Known to Law Enforcement by State by City, 2024 (CIUS Table 8). FBI Crime Data Explorer. https://cde.ucr.cjis.gov/LATEST/webapp/#/pages/downloads
